@@ -1,16 +1,23 @@
 var ContactManager = new Marionette.Application();
 
 ContactManager.StaticView = Marionette.ItemView.extend({
-  el: "#main-region",
   template: "#static-template"
 })
 
-ContactManager.on("start", function() {
-  var staticView = new ContactManager.StaticView({
-    template: "#different-static-template"
-  })
-  staticView.render();
+ContactManager.on("before:start", function() {
+  var RegionContainer = Marionette.LayoutView.extend({
+    el: "#app.container",
+    regions: {
+      main: "#main-region"
+    }
+  });
+  
+  ContactManager.regions = new RegionContainer();
+});
 
+ContactManager.on("start", function() {
+  var staticview = new ContactManager.StaticView();
+  ContactManager.regions.main.show(staticview);
 })
 
 ContactManager.start();
