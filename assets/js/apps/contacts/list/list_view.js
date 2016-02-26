@@ -28,11 +28,11 @@ App.module("ContactsApp.List", function(List, App, Backbone, Marionette, $, _) {
       this.trigger("contact:show", this.model)
     },
     onRender: function() {
-      this.$el.fadeIn();
+      this.$el.fadeIn("slow");
     },
     remove: function() {
       var self = this;
-      this.$el.fadeOut(function(){
+      this.$el.fadeOut("slow", function(){
         Marionette.ItemView.prototype.remove.call(self);
       });
     }

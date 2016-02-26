@@ -2,6 +2,17 @@
 
 var App = new Marionette.Application();
 
+// helper on routing common on several programs
+App.navigate = function(route, options) {
+  options || (options = {});
+  Backbone.history.navigate(route, options)
+};
+
+// helper on routing common on several programs
+App.getCurrentRoute = function() {
+  return Backbone.history.fragment
+}
+
 App.on("before:start", function() {
 
   Marionette.ItemView.prototype.onRemove = function(){};
@@ -17,7 +28,14 @@ App.on("before:start", function() {
 })
 
 App.on("start", function() {
-  App.ContactsApp.List.Controller.listContacts()
+  // App.ContactsApp.List.Controller.listContacts()
+  if(Backbone.history) {
+    Backbone.history.start();
+
+    if (this.getCurrentRoute() === "") {
+      App.trigger("contacts:list");
+    }
+  }
 })
 
 

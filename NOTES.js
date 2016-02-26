@@ -33,7 +33,15 @@ MODULES
 - Support multiple file operations
 
 ROUTER
-- Defined in a top level module
+- Defined in a top level module.
+- Triggering routing events:
+    Execute controller actions corresponding to the URL with which the user first
+    “entered” the app. The route-handling code gets fired only when a user enters
+    the application by a URL, not each time the URL changes.
+- Updating the URL:
+    Update the URL in the address bar as the user navigates within the app. Keeping
+    the URL up to date enables the browser’s “back” & “forward” buttons to function,
+    URL sync with the app and bookmarking.
 
 CONTROLLER
 - Responsible for managing within a sub-module

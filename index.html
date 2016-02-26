@@ -28,7 +28,7 @@
       <td><%- firstName %></td>
       <td><%- lastName %></td>
       <td>
-        <a href="#" class="btn btn-small js-show">
+        <a href="#contacts" class="btn btn-small js-show">
           <i class="icon-eye-open"></i>
           Show
         </a>
@@ -53,6 +53,23 @@
     <script type="text/template" id="contact-view">
       <h1> <%- firstName %> <%- lastName %> </h1>
       <p><strong>Phone number: </strong> <%- phoneNumber %></p>
+      <hr>
+      <br>
+      <br>
+      <br>
+      <br>
+      <button class="goBack btn btn-small btn-warning">Back</button>
+    </script>
+
+    <!-- non existant -->
+    <script type="text/template" id="missing-contact-view">
+      <div class="alert alert-error">This contact doesn't exist !</div>
+      <hr>
+      <br>
+      <br>
+      <br>
+      <br>
+      <button class="goBack btn btn-small btn-warning">Back</button>
     </script>
 
 
@@ -61,15 +78,20 @@
     <script src="./assets/js/vendor/json2.js"></script>
     <script src="./assets/js/vendor/underscore.js"></script>
     <script src="./assets/js/vendor/backbone.js"></script>
+    <script src="./assets/js/vendor/backbone.localstorage.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
     <!-- app -->
     <script src="./assets/js/app.js"></script>
-    <!-- entities -->
+    <!-- localstorage -->
+    <script src="./assets/js/apps/config/storage/localstorage.js"></script>
+    <!-- Module Entities -->
     <script src="./assets/js/entities/contact.js"></script>
-    <!-- ContactsApp.List -->
+    <!-- Module ContactsApp -->
+    <script src="./assets/js/apps/contacts/contacts_app.js"></script>
+    <!-- Sub-module ContactsApp.List -->
     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
-    <!-- ContactsApp.Show -->
+    <!-- Sub-module ContactsApp.Show -->
     <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
     <script src="./assets/js/apps/contacts/show/show_view.js"></script>
 

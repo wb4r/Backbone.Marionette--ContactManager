@@ -2,11 +2,19 @@
 
 App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
-  Entities.Contact = Backbone.Model.extend()
+  Entities.Contact = Backbone.Model.extend({
+    urlRoot: "contacts"
+  })
+
+  Entities.configureStorage("App.Entities.Contact")
 
   Entities.Contacts = Backbone.Collection.extend({
-    model: Entities.Contact
+    url: "contacts",
+    model: Entities.Contact,
+    comparator: "firstName"
   })
+
+  Entities.configureStorage("App.Entities.Contacts")
 
   var contacts;
 
@@ -18,20 +26,35 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
       phoneNumber: "555-0163" },
       { id: 3, firstName: "Charlie", lastName: "Campbell",
       phoneNumber: "555-0129" }
-    ])
+    ]);
+    contacts.forEach(function(contact) {
+      contact.save()
+    })
+    return contacts;
   }
 
   var API = {
     getContactEntities: function() {
-      if (contacts === undefined) {
-        initializeContacts()
+      var contacts = new Entities.Contacts();
+      contacts.fetch();
+      if (contacts.length === 0) {
+        return initializeContacts()
       }
       return contacts;
+    },
+    getContactEntity: function(contactId){
+      var contact = new Entities.Contact({id: contactId});
+      contact.fetch();
+      return contact;
     }
   }
 
   App.reqres.setHandler("contact:entities", function(){
     return API.getContactEntities()
+  })
+
+  App.reqres.setHandler("contact:entity", function(id){
+    return API.getContactEntity(id)
   })
 })
 
