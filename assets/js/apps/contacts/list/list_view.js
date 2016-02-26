@@ -60,14 +60,23 @@ App.module("ContactsApp.List", function(List, App, Backbone, Marionette, $, _) {
     template: "#contact-list",
     childView: List.Contact,
     childViewContainer: "tbody",
+  })
 
-    // activated from:
-    //("childview:contact:delete")
-    // onChildviewContactDelete: function() {
-    //   this.$el.fadeOut(1000, function() {
-    //     $(this).fadeIn(1000)
-    //   })
-    // }
+  List.Layout = Marionette.LayoutView.extend({
+    template: "#contact-list-layout",
+
+    regions: {
+      panelRegion: "#panel-region",
+      contactsRegion: "#contacts-region"
+    }
+  });
+
+  List.Panel = Marionette.ItemView.extend({
+    template: "#contact-list-panel",
+
+    triggers: {
+      "click button.js-new" : "contact:new"
+    }
   })
 })
 
