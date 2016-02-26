@@ -1,4 +1,104 @@
 ///////////////
+//    4
+//////////////
+
+RELATIONSHIP BETWEEN MODEL AND COLLECTION AND ItemView AND CollectionView
+
+
+          ////////////////////////////
+          //--------------------------
+          //  Collection/Model Constructor
+          // -------------------------
+          ////////////////////////////
+
+          // MODEL Constructor
+          ContactManager.Contact = Backbone.Model.extend({
+            defaults: {
+            }
+          })
+
+          // COLLECTION Constructor
+          ContactManager.ContactList = Backbone.Collection.extend({
+            model: ContactManager.Contact
+          })
+
+          ////////////////////////////
+          //--------------------------
+          //  Collection/Model Instances
+          // -------------------------
+          ////////////////////////////
+
+          // MODEL Intance/s
+          var contact = new ContactManager.Contact({
+            data: ""
+          });
+
+          // COLLECTION Instance
+          // ---- Merge with Collection View Instance ----
+          var contactlist = new ContactManager.ContactList();
+
+          ////////////////////////////
+          //--------------------------
+          //  ItemView Constructors
+          // -------------------------
+          ////////////////////////////
+
+          // MODELS ItemView
+          ContactManager.ContactView = Marionette.ItemView.extend({
+            template: "#contact-template",
+            events: {
+            }
+          })
+
+          // COLLECTION ItemView
+          ContactManager.ContactListView = Marionette.CollectionView.extend({
+            childView: ContactManager.ContactView
+          })
+
+          ////////////////////////////
+          //--------------------------
+          //  ItemView Instances
+          // -------------------------
+          ////////////////////////////
+
+          // MODEL View
+          // ---- NOT NECESSARY ----
+          var contactview = new ContactManager.ContactView({model: contact});
+
+          // COLLECTION View
+          // ---- Merge with Collection Instance ----
+          var contactlistview = ContactManager.ContactListView()
+
+
+          // COLLECTION View  AND   COLLECTION View Instance
+          var contacstview = new App.ContactsView({collection: contacts});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////
 //    3
 ///////////////
 
