@@ -3,7 +3,20 @@
 App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
   Entities.Contact = Backbone.Model.extend({
-    urlRoot: "contacts"
+    urlRoot: "contacts",
+
+    validate: function(attrs, options) {
+      var errors = {};
+      if (! attrs.firstName) {
+        errors.firstName = "Can't be blank"
+      };
+      if (! attrs.lastName) {
+        errors.lastName = "Can't be blank"
+      };
+      if (! _.isEmpty(errors)) {
+        return errors;
+      }
+    }
   })
 
   Entities.configureStorage("App.Entities.Contact")
@@ -30,22 +43,46 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     contacts.forEach(function(contact) {
       contact.save()
     })
-    return contacts;
+    return contacts.models;
   }
 
   var API = {
     getContactEntities: function() {
       var contacts = new Entities.Contacts();
-      contacts.fetch();
-      if (contacts.length === 0) {
-        return initializeContacts()
-      }
-      return contacts;
+      var defer = $.Deferred();
+      contacts.fetch({
+        success: function(data) {
+          defer.resolve(data)
+        }
+      });
+      var promise = defer.promise();
+      $.when(promise).done(function(fetchedContacts) {
+        if(fetchedContacts.length === 0) {
+          var models = initializeContacts();
+          contacts.reset(models)
+        }
+      })
+      return promise;
     },
     getContactEntity: function(contactId){
       var contact = new Entities.Contact({id: contactId});
-      contact.fetch();
-      return contact;
+      // declare a Deferred object instance
+      // (:) is essentially “something that will happen later”: it is used
+      //   to synchronize code by having it react as the promise is updated
+      //   (typically with succeess/failure).
+      var defer = $.Deferred();
+      setTimeout(function() {
+        contact.fetch({
+          success: function(data) {
+            defer.resolve(data);
+          },
+          error: function(data) {
+            defer.resolve(undefined)
+          }
+        });
+      }, 2000)
+      // return a promise on the defer object
+      return defer.promise();
     }
   }
 

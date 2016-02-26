@@ -19,9 +19,14 @@ App.module("ContactsApp.Show", function(Show, App, Backbone, Marionette, $, _){
     template: "#contact-view",
 
     events: {
-      "click .goBack"  : "backToContacts"
+      "click a.js-edit": "editClicked",
+      "click .goBack" : "backToContacts"
     },
 
+    editClicked: function(e) {
+      e.preventDefault();
+      this.trigger("contact:edit", this.model)
+    },
     backToContacts: function(e) {
       e.preventDefault();
       App.trigger("contacts:list")

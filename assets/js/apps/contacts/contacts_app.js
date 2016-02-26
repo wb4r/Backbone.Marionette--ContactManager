@@ -3,7 +3,8 @@ App.module("ContactsApp", function(ContactsApp, App, Backbone, Marionette, $, _)
     appRoutes: {
       // listContacts referes to in API
       "contacts": "listContacts",
-      "contacts/:id": "showContact"
+      "contacts/:id": "showContact",
+      "contacts/:id/edit": "editContact"
     }
   });
 
@@ -14,6 +15,10 @@ App.module("ContactsApp", function(ContactsApp, App, Backbone, Marionette, $, _)
 
     showContact: function(id) {
       ContactsApp.Show.Controller.showContact(id)
+    },
+
+    editContact: function(id) {
+      ContactsApp.Edit.Controller.editContact(id)
     }
   };
 
@@ -25,6 +30,11 @@ App.module("ContactsApp", function(ContactsApp, App, Backbone, Marionette, $, _)
   App.on("contact:show", function(id) {
     App.navigate("contacts/" + id);
     API.showContact(id);
+  })
+
+  App.on("contact:edit", function(id) {
+    App.navigate("contacts/" + id + "/edit")
+    API.editContact(id);
   })
 
   ContactsApp.on("start", function() {

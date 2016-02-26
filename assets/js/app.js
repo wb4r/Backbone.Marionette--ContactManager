@@ -20,7 +20,8 @@ App.on("before:start", function() {
   var Layout = Marionette.LayoutView.extend({
     el: "#app-container",
     regions: {
-      main: "#main-region"
+      main: "#main-region",
+      dialog: "#dialog-region"
     }
   });
 

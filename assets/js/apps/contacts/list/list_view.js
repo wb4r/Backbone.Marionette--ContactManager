@@ -9,7 +9,16 @@ App.module("ContactsApp.List", function(List, App, Backbone, Marionette, $, _) {
     events: {
       "click"               :     "highlightName",
       "click .js-delete"    :     "removeContact",
-      "click .js-show"      :     "showClicked"
+      "click .js-show"      :     "showClicked",
+      "click td a.js-edit"  :     "editClicked"
+    },
+    flash: function(cssClass) {
+      var $view = this.$el;
+      $view.hide().toggleClass(cssClass).fadeIn(800, function() {
+        setTimeout(function() {
+          $view.toggleClass(cssClass)
+        }, 500)
+      })
     },
     highlightName: function() {
       this.$el.toggleClass("warning");
@@ -35,6 +44,11 @@ App.module("ContactsApp.List", function(List, App, Backbone, Marionette, $, _) {
       this.$el.fadeOut("slow", function(){
         Marionette.ItemView.prototype.remove.call(self);
       });
+    },
+    editClicked: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.trigger("contact:edit", this.model)
     }
 
   });

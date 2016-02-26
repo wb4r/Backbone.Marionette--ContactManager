@@ -5,6 +5,7 @@
     <title>Marionette Contact Manager</title>
     <link href="./assets/css/bootstrap.css" rel="stylesheet">
     <link href="./assets/css/application.css" rel="stylesheet">
+    <link href="./assets/css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
   </head>
   <body>
     <!-- Navbar -->
@@ -21,6 +22,9 @@
         <p>Here is static content in the web page. You'll notice that it gets
         replaced by our app as soon as we start it.</p>
       </div>
+
+      <!-- DOM element for modal dialogs -->
+      <div id="dialog-region"></div>
     </div>
 
 
@@ -31,6 +35,10 @@
         <a href="#contacts" class="btn btn-small js-show">
           <i class="icon-eye-open"></i>
           Show
+        </a>
+        <a href="#contacts/<%- id %>/edit" class="btn btn-small js-edit">
+          <i class="icon-pencil"></i>
+          Edit
         </a>
         <button class="btn btn-small js-delete">
           <i class="icon-remove"></i>
@@ -58,7 +66,11 @@
       <br>
       <br>
       <br>
-      <button class="goBack btn btn-small btn-warning">Back</button>
+      <a href="#contacts/<%- id %>/edit" class="btn btn-small js-edit">
+        <i class="icon-pencil"></i>
+        Edit Contact
+      </a>
+      <button class="goBack btn btn-small btn-warning">Contacts List</button>
     </script>
 
     <!-- non existant -->
@@ -72,14 +84,72 @@
       <button class="goBack btn btn-small btn-warning">Back</button>
     </script>
 
+    <!-- spin -->
+    <script type="text/template" id="loading-view">
+      <h1>Artificial Loading Delay</h1>
+      <p>Data loading is delayed to demonstrate using a loading view.</p>
+      <div id="spinner"></div>
+    </script>
+
+    <!-- edit contact -->
+    <script type="text/template" id="contact-form">
+      <form>
+        <div class="control-group">
+          <label for="contact-firstName" class="control-label">
+            First name:
+          </label>
+          <input id="contact-firstName" name="firstName" type="text" value="<%- firstName %>"/>
+        </div>
+        <div class="control-group">
+          <label for="contact-lastName" class="control-label">
+            Last name:
+          </label>
+          <input id="contact-lastName" name="lastName" type="text" value="<%- lastName %>"/>
+        </div>
+        <div class="control-group">
+          <label for="contact-phoneNumber" class="control-label">
+            Phone number:
+          </label>
+          <input id="contact-phoneNumber" name="phoneNumber" type="text" value="<%- phoneNumber %>"/>
+        </div>
+        <button class="btn js-submit">Save</button>
+        <button href="#contacts" class="goBack btn btn-small btn-danger">Canceñ</button>
+      </form>
+    </script>
+
+    <!-- edit from index.html -->
+    <script type="text/template" id="contact-list-item">
+      <td><%- firstName %></td>
+      <td><%- lastName %></td>
+      <td>
+        <a href="#contacts/<%- id %>" class="btn btn-small js-show">
+          <i class="icon-eye-open"></i>
+          Show
+        </a>
+        <a href="#contacts/<%- id %>/edit" class="btn btn-small js-edit">
+          <i class="icon-pencil"></i>
+          Edit
+        </a>
+        <button class="btn btn-small js-delete">
+          <i class="icon-remove"></i>
+          Delete
+        </button>
+      </td>
+    </script>
+
 
     <!-- Backbone.js Marionette.js PACK -->
     <script src="./assets/js/vendor/jquery.js"></script>
+    <script src="./assets/js/vendor/jquery-ui.js"></script>
     <script src="./assets/js/vendor/json2.js"></script>
     <script src="./assets/js/vendor/underscore.js"></script>
     <script src="./assets/js/vendor/backbone.js"></script>
+    <script src="./assets/js/vendor/backbone.syphon.js"></script>
     <script src="./assets/js/vendor/backbone.localstorage.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
+    <script src="./assets/js/vendor/spin.js"></script>
+    <script src="./assets/js/vendor/spin.jquery.js"></script>
+
     <!-- app -->
     <script src="./assets/js/app.js"></script>
     <!-- localstorage -->
@@ -94,6 +164,11 @@
     <!-- Sub-module ContactsApp.Show -->
     <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
     <script src="./assets/js/apps/contacts/show/show_view.js"></script>
+    <!-- Sub-module ContactsApp.Edit -->
+    <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
+    <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
+    <!-- common (spin) -->
+    <script src="./assets/js/common/views.js"></script>
 
 
     <!-- list -->
