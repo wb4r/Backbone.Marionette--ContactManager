@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Marionette Contact Manager</title>
+    <link href="./assets/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/css/application.css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <span class="brand">Contact manager</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="app-container">
+      <div id="main-region" class="container">
+        <p>Here is static content in the web page. You'll notice that it gets
+        replaced by our app as soon as we start it.</p>
+      </div>
+    </div>
+
+    <script id="static-template" type="text/template">
+      <p>
+      Text rendered by javascript Marionettee
+      </p>
+    </script>
+    
+    <script type="text/template" id="different-static-template">
+      <p>Text from a different template...</p>
+    </script>
+
+    <!-- Backbone.js Marionette.js PACK -->
+    <script src="./assets/js/vendor/jquery.js"></script>
+    <script src="./assets/js/vendor/json2.js"></script>
+    <script src="./assets/js/vendor/underscore.js"></script>
+    <script src="./assets/js/vendor/backbone.js"></script>
+    <script src="./assets/js/vendor/backbone.marionette.js"></script>
+    <script src="./assets/js/application.js"></script>
+
+  </body>
+</html>
