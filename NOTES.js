@@ -1,4 +1,26 @@
+///////////////
+//    3
+///////////////
 
+Backbone models’ escape 39 works the same way as get 40: they both return
+the value of the attribute provided as an argument, but escape will escape
+HTML content, protecting you from XSS attacks if you’re displaying
+user-provided data within the HTML.
+
+--> The same return:
+console.log(this.model.escape("phone"));
+console.log(this.model.get("phone"));
+console.log(this.model.toJSON().phone);
+console.log(this.model.attributes.phone);
+
+
+
+
+
+
+///////////////
+//    2
+///////////////
 A LayoutView can be thought of as “a view containing other views”.
 
 What do you need to actually render a view?
@@ -6,24 +28,6 @@ What do you need to actually render a view?
   - An instance from ItemView
   - optional: a container such as LayoutView or Regions
   - show/render it
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
