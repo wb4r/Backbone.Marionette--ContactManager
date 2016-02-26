@@ -1,4 +1,157 @@
 ///////////////
+//    6. DEFINITIONS
+//////////////
+
+APPLICATION
+
+REGIONS
+- Define the major structure elements
+    > #header-region
+    > #main-region
+    > #footer-region
+
+- Represent the outer most frame where all top level Layouts and
+  Views are inserted into.
+- Manage showing and closing view instances.
+
+MODULES
+- They are a way to encapsulate and namespace the app further into
+  specific groups of functionality
+    > HeaderApp (into #header-region Region)
+    > UsersApp.List (Sub-module into #main-region)
+    > FooterApp (into #footer-region Region)
+
+- They represent the top level authority and are responsible for
+  everything attached and defined to them.
+
+- Can have unlimited sub-modules.
+    > Module ShoppingCart.
+    Based on functionality we can create 2 submodules:
+    > Module ShoppingCart Submodule Controller
+    > Module ShoppingCart Submodule Views
+
+- Support multiple file operations
+
+ROUTER
+- Defined in a top level module
+
+CONTROLLER
+- Responsible for managing within a sub-module
+- Intantiate and wire up Views
+- Manage Entities (models/collections)
+- Respond to View events
+- Bubble up information to parent module
+
+LAYOUTS
+- Has the ability to define a set of regions
+    > #main-region > UsersApp.List > Layout >   - #panel-region
+                                                - #aside-region
+                                                - #table-region
+- Manages nested views inside those regions easily.
+
+VIEWS
+
+COMPOSITEVIEW
+- Extends from a CollectionView but more powerful like i.e. has
+a template attr.
+
+
+
+
+
+
+
+
+
+
+///////////////
+//    6
+//////////////
+
+
+APPLICATION
+  + new application
+  + LayoutView before:start
+  - Module.Controller call
+
+MODULE ContactsApp.List
+  --> VIEW
+    + ItemView for Model / Collection
+
+  --> CONTROLLER
+    -- Controller.call responds to Application Module.Controller call (request)
+
+MODULE Entities
+  + Declare Model / Collection Constructors
+  + Initializes M/C
+  +- Provides reqres.setHandler to be available outside the module
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////
+//    5
+//////////////
+
+Controller: It’s basically the application equivalent of an orchestra
+conductor: it coordinates the various pieces (typically models/collections and views), and gets them
+to produce a coherent result (i.e. a displayed page).
+
+Can be instantiated or long lived. We will use them to coordinate which views need to
+be created and which models and collections are fetch. Are responsible for managing
+within a sub-module too.
+
+Modules: modules are organized in a way where they represent the top level authority
+(independent top level applications) and are responsible for everything attached
+and defined to them (highest level of responsabilities)
+
+Can have unlimited sub-modules attached directly to them, which is how you organize
+responsabilities into sucinct sections. (??)
+
+Zimmerman: A module is an independent unit of code that ideally does one thing.
+It can be used in conjunction with other modules to create an entire system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////
 //    4
 //////////////
 
