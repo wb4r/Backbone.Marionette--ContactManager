@@ -4,6 +4,8 @@ var App = new Marionette.Application();
 
 App.on("before:start", function() {
 
+  Marionette.ItemView.prototype.onRemove = function(){};
+
   var Layout = Marionette.LayoutView.extend({
     el: "#app-container",
     regions: {
@@ -15,7 +17,7 @@ App.on("before:start", function() {
 })
 
 App.on("start", function() {
-  App.ContactsApp.List.Controller.getContacts()
+  App.ContactsApp.List.Controller.listContacts()
 })
 
 

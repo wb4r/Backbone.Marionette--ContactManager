@@ -23,9 +23,38 @@
       </div>
     </div>
 
+
     <script type="text/template" id="contact-list-item">
-      <%- firstName %> <%- lastName %>
+      <td><%- firstName %></td>
+      <td><%- lastName %></td>
+      <td>
+        <a href="#" class="btn btn-small js-show">
+          <i class="icon-eye-open"></i>
+          Show
+        </a>
+        <button class="btn btn-small js-delete">
+          <i class="icon-remove"></i>
+        </button>
+      </td>
     </script>
+
+    <script type="text/template" id="contact-list">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </script>
+
+    <script type="text/template" id="contact-view">
+      <h1> <%- firstName %> <%- lastName %> </h1>
+      <p><strong>Phone number: </strong> <%- phoneNumber %></p>
+    </script>
+
 
     <!-- Backbone.js Marionette.js PACK -->
     <script src="./assets/js/vendor/jquery.js"></script>
@@ -37,9 +66,12 @@
     <script src="./assets/js/app.js"></script>
     <!-- entities -->
     <script src="./assets/js/entities/contact.js"></script>
-    <!-- apps -->
+    <!-- ContactsApp.List -->
     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+    <!-- ContactsApp.Show -->
+    <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
+    <script src="./assets/js/apps/contacts/show/show_view.js"></script>
 
 
     <!-- list -->

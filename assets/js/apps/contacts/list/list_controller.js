@@ -2,14 +2,23 @@
 
 App.module("ContactsApp.List", function(List, App, Backbone, Marionette, $, _) {
   List.Controller = {
-    getContacts: function() {
+    listContacts: function() {
       var contacts = App.request("contact:entities");
-
-      var contactsListView = new List.ContactsView({
+      var contactsListView = new List.Contacts({
         collection: contacts
       });
 
-      App.regions.main.show(contactsListView)
+      contactsListView.on("childview:contact:delete",
+        function(childView, model) {
+          contacts.remove(model)
+      });
+
+      contactsListView.on("childview:contact:show",
+        function(childView, model) {
+          App.ContactsApp.Show.Controller.showContact(model);
+        })
+
+      App.regions.main.show(contactsListView);
     }
   }
 })

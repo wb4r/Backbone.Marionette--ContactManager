@@ -2,14 +2,58 @@
 
 App.module("ContactsApp.List", function(List, App, Backbone, Marionette, $, _) {
 
-  List.ContactView = Marionette.ItemView.extend({
-    tagName: "li",
-    template: "#contact-list-item"
+  List.Contact = Marionette.ItemView.extend({
+    tagName: "tr",
+    template: "#contact-list-item",
+
+    events: {
+      "click"               :     "highlightName",
+      "click .js-delete"    :     "removeContact",
+      "click .js-show"      :     "showClicked"
+    },
+    highlightName: function() {
+      this.$el.toggleClass("warning");
+    },
+    removeContact: function(e) {
+      e.stopPropagation();
+      // this.model instanceof App.Entities.Contact                 TRUE
+      // this.model.collection instanceof App.Entities.Contacts     TRUE
+      // this.model.collection.remove(this.model)
+      this.trigger("contact:delete", this.model);
+      // this.trigger(List.ContactsView.fade());
+    },
+    showClicked: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.trigger("contact:show", this.model)
+    },
+    onRender: function() {
+      this.$el.fadeIn();
+    },
+    remove: function() {
+      var self = this;
+      this.$el.fadeOut(function(){
+        Marionette.ItemView.prototype.remove.call(self);
+      });
+    }
+
   });
 
-  List.ContactsView = Marionette.CollectionView.extend({
-    tagName: "ul",
-    childView: List.ContactView
+  // List.ContactsView = Marionette.CollectionView.extend({
+  List.Contacts = Marionette.CompositeView.extend({
+    tagName: "table",
+    className: "table table-hover",
+    template: "#contact-list",
+    childView: List.Contact,
+    childViewContainer: "tbody",
+
+    // activated from:
+    //("childview:contact:delete")
+    // onChildviewContactDelete: function() {
+    //   this.$el.fadeOut(1000, function() {
+    //     $(this).fadeIn(1000)
+    //   })
+    // }
   })
 })
 
